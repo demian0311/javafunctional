@@ -1,13 +1,6 @@
-A  src/main/java/Library.java
-A  src/test/java/LibraryTest.java
-?? .gitignore
-?? .gradle/
-?? build.gradle
-?? build/
-?? gradle/
-?? gradlew
-?? gradlew.bat
-?? javafunctional.iml
-?? javafunctional.ipr
-?? javafunctional.iws
-?? settings.gradle
+.gradle/
+build/
+gradle/
+*.iml
+*.ipr
+*.iws
