@@ -107,8 +107,7 @@ public class FpijCollectionsIterationTest {
         assertEquals(0, countEditorsStartN);
     }
 
-    @Test
-    public void reusingLambdaExpressions2() {
+    @Test public void reusingLambdaExpressions2() {
         final Predicate<String> startsWithN = name -> name.startsWith("N");
 
         final long countFriendsStartN = friends.stream().filter(startsWithN).count();
@@ -128,15 +127,13 @@ public class FpijCollectionsIterationTest {
         return name -> name.startsWith(letter);
     }
 
-    @Test
-    public void removingDuplicationWithLexicalScoping(){
+    @Test public void removingDuplicationWithLexicalScoping(){
         assertEquals(2, friends.stream().filter(checkIfStartsWith("N")).count());
         assertEquals(1, comrades.stream().filter(checkIfStartsWith("N")).count());
         assertEquals(0, editors.stream().filter(checkIfStartsWith("N")).count());
     }
 
-    @Test
-    public void refactoringToNarrowTheScope() {
+    @Test public void refactoringToNarrowTheScope() {
         final Function<String, Predicate<String>> startsWithLetter = letter -> name -> name.startsWith(letter);
 
         assertEquals(2, friends.stream().filter(startsWithLetter.apply("N")).count());
@@ -161,8 +158,7 @@ public class FpijCollectionsIterationTest {
         return foundName;
     }
 
-    @Test
-    public void pickNameTest() {
+    @Test public void pickNameTest() {
         final String nName = pickName(friends, "N");
         assertEquals("Nate", nName);
     }
@@ -191,5 +187,16 @@ public class FpijCollectionsIterationTest {
 
         // this is almost like pattern matching, we have the un-wrapping done for us
         aLongName.ifPresent(name -> assertEquals("Scott", name));
+    }
+
+    @Test public void testJoiningElements() {
+        assertEquals(
+                "Brian, Nate, Neal, Raju, Sara, Scott",
+                String.join(", ", friends));
+
+        // hmmm, not sure what I'm doing wrong here
+        //assertEquals(
+        //        "BRIAN: NATE: NEAL: RAJU: SARA: SCOTT",
+        //        friends.stream().map(String::toUpperCase).collect(joining(", ")));
     }
 }
