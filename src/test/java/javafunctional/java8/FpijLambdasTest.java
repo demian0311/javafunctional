@@ -1,4 +1,4 @@
-package javafunctional.java8.lambdas;
+package javafunctional.java8;
 
 import org.junit.Test;
 
