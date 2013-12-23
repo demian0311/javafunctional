@@ -1,4 +1,4 @@
-package javafunctional.java8;
+package javafunctional.java8.fpij;
 
 import org.junit.Test;
 
@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.*;
 
-public class FpijLambdasTest {
+public class Chapter1 {
 
     @Test public void habitualWay(){
         final List<String> cities = Arrays.asList(

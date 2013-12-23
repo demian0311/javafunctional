@@ -1,4 +1,4 @@
-package javafunctional.java8;
+package javafunctional.java8.fpij;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public class FpijCollectionsIterationTest {
+public class Chapter2 {
 
     final List<String> friends = Arrays.asList(
             "Brian", "Nate", "Neal", "Raju", "Sara", "Scott");
