@@ -2,9 +2,6 @@ package javafunctional.java8;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class FizzBuzzTest {
@@ -16,13 +13,14 @@ public class FizzBuzzTest {
         return whatToSay.isEmpty() ? ""+numberIn : whatToSay;
     }
 
+    /*
     public List<Integer> range(Integer size){
         Integer[] range = new Integer[size];
         for(int ii = 0; ii <= size; ii++) {
             range[ii] = ii;
         }
         Arrays.asList(range);
-    }
+    }*/
 
     @Test public void runIt() {
         for(int ii = 0; ii <= 100; ii++) {
