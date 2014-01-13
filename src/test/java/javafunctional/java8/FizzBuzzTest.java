@@ -2,28 +2,22 @@ package javafunctional.java8;
 
 import org.junit.Test;
 
+import java.util.Optional;
+import java.util.function.Function;
+
 import static org.junit.Assert.assertEquals;
 
 public class FizzBuzzTest {
 
     public String fizzBuzz(int numberIn){
         String whatToSay = "";
-        if(numberIn % 3 == 0) { whatToSay += "Fizz"; }
+        if (numberIn % 3 == 0) { whatToSay += "Fizz"; }
         if (numberIn % 5 == 0){ whatToSay += "Buzz"; }
         return whatToSay.isEmpty() ? ""+numberIn : whatToSay;
     }
 
-    /*
-    public List<Integer> range(Integer size){
-        Integer[] range = new Integer[size];
-        for(int ii = 0; ii <= size; ii++) {
-            range[ii] = ii;
-        }
-        Arrays.asList(range);
-    }*/
-
     @Test public void runIt() {
-        for(int ii = 0; ii <= 100; ii++) {
+        for(int ii = 1; ii <= 100; ii++) {
             System.out.println(fizzBuzz(ii));
         }
     }
