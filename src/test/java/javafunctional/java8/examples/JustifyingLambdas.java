@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class JustifyingLambdas {
@@ -30,15 +31,14 @@ public class JustifyingLambdas {
 
     @Test public void isAppleThereFunctional() {
        assertTrue(portfolio.stream().anyMatch(s -> s.getTicker().equals("AAPL")));
-       portfolio.stream().map(s -> s.getTicker().equals("AAPL")).collect(Collectors.toList());
     }
 
     @Test public void stocksWeHaveManyOf() {
-        List<Stock> stocksWeHaveManyOf = portfolio.stream()
-                .filter(s -> s.getQuantity() >= 100)
-                .sorted((a, b) -> a.getQuantity() > b.getQuantity()? -1 : 1)
-                .collect(Collectors.toList());
-        System.out.println("stocksWeHaveManyOf: " + stocksWeHaveManyOf);
-
+        List<String> stocksWeHaveManyOf = portfolio.stream()
+                .filter(s -> s.getQuantity() >= 100)                 // filter it
+                .sorted((a, b) -> a.getQuantity() - b.getQuantity()) // sort it
+                .map(s -> s.getTicker())                             // turn it into a String
+                .collect(Collectors.toList());                       // turn it into a List<String>
+        assertEquals(Arrays.asList("AAPL", "GOOG"), stocksWeHaveManyOf);
     }
 }
