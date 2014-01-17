@@ -11,10 +11,10 @@ import static org.junit.Assert.assertTrue;
 public class JustifyingLambdas {
 
     private List<Stock> portfolio = Arrays.asList(
-            new Stock("AAPL", 5, 1),
-            new Stock("MSFT", 5, 1),
-            new Stock("CSCO", 5, 1),
-            new Stock("GOOG", 400, 1));
+            new Stock("AAPL", 5, 100),
+            new Stock("MSFT", 5, 19),
+            new Stock("CSCO", 5, 84),
+            new Stock("GOOG", 400, 759));
 
     @Test public void isAppleThere() {
         boolean isAppleThere = false;
@@ -31,5 +31,14 @@ public class JustifyingLambdas {
     @Test public void isAppleThereFunctional() {
        assertTrue(portfolio.stream().anyMatch(s -> s.getTicker().equals("AAPL")));
        portfolio.stream().map(s -> s.getTicker().equals("AAPL")).collect(Collectors.toList());
+    }
+
+    @Test public void stocksWeHaveManyOf() {
+        List<Stock> stocksWeHaveManyOf = portfolio.stream()
+                .filter(s -> s.getQuantity() >= 100)
+                .sorted((a, b) -> a.getQuantity() > b.getQuantity()? -1 : 1)
+                .collect(Collectors.toList());
+        System.out.println("stocksWeHaveManyOf: " + stocksWeHaveManyOf);
+
     }
 }

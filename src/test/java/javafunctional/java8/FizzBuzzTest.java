@@ -11,7 +11,7 @@ public class FizzBuzzTest {
 
     public String fizzBuzz(int numberIn){
         String whatToSay = "";
-        if (numberIn % 3 == 0) { whatToSay += "Fizz"; }
+        if (numberIn % 3 == 0){ whatToSay += "Fizz"; }
         if (numberIn % 5 == 0){ whatToSay += "Buzz"; }
         return whatToSay.isEmpty() ? ""+numberIn : whatToSay;
     }
