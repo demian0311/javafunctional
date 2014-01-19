@@ -25,35 +25,41 @@ public class Lambdas {
             new Stock("MSFT", 5, 19),
             new Stock("CSCO", 5, 84));
 
-    @Test public void predicate() {
-        Predicate<Integer> divBy3 = (arg) -> arg % 3 == 0? true: false;
-        assertEquals(true, divBy3.test(9));
+    Function<Stock, Integer> findValue = (Stock s) -> s.getValue() * s.getQuantity();
+
+    Predicate<Stock> valueOver200 = s -> findValue.apply(s) > 200;
+
+    @Test public void saleOver200() {
+        assertEquals(true, valueOver200.test(new Stock("FOO", 11, 20)));
     }
 
-    Function<String, String> reverse = (arg) -> (new StringBuffer(arg)).reverse().toString();
-
-    @Test public void function(){
-        assertEquals("olleH", reverse.apply("Hello"));
+    @Test public void function() {
+        assertEquals(new Integer("30"), findValue.apply(new Stock("GOOG", 3, 10)));
     }
 
-    Supplier<String> headsOrTails = () -> (System.currentTimeMillis() % 2 == 0) ? "HEADS" : "TAILS";
+    Supplier<Boolean> tradingWindowOpen = () -> true;
 
     @Test public void supplier() {
-        String result = headsOrTails.get();
-        assertTrue(result.equals("HEADS") || result.equals("TAILS"));
+        assertTrue(tradingWindowOpen.get());
     }
 
-    Consumer<String> println = (arg) -> System.out.println(arg);
+    Consumer<Stock> sell = (arg) -> System.out.println("\tSELL ORDER: " + arg);
 
-    /**
-     * This interface is meant for side-effects.
-     */
     @Test public void consumer() {
-        println.accept("Hello World");
+        sell.accept(new Stock("FOO", 3, 12));
     }
 
-    @Test public void allTogether(){
-        //reverse.
+    @Test public void allTogether() {
+        System.out.println("--- BEGIN");
+
+        portfolio.stream()
+                .filter(s -> valueOver200.test(s))
+                .filter(s -> tradingWindowOpen.get())
+                .reduce()
+                .peek(s -> System.out.println("GOING TO SELL: " + s.getTicker()))
+                .forEach(s -> sell.accept(s));
+
+        System.out.println("--- END");
     }
 
 }
