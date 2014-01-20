@@ -1,65 +1,69 @@
 package jtrade;
 
+import org.junit.Ignore;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Demonstrate functions that create other functions and functions that take in functions.
  */
 public class HigherOrderFunctions {
-    public Function<Stock, Stock> createBalanceStockAlgorithm(Integer maximumValueOfStock){
-        Function<Stock, Stock> algorithm = (Stock s) -> {
-            Double overageValue = (s.getPrice() * s.getQuantity()) - maximumValueOfStock;
-            Integer overageQuantity = (int) Math.round(overageValue % s.getPrice());
 
-            if(overageQuantity > 0) {
-                System.out.println(String.format("SELL: %s shares of %s", overageQuantity, s.getTicker()));
-            }
-
-            return new Stock(s.getTicker(), s.getPrice(), s.getQuantity() - overageQuantity);
-        };
-
-        return algorithm;
-    }
-
-    @Test public void testCreateBalanceStockAlgorithm() {
-        System.out.println("hello world");
-        Function<Stock, Stock> alg = createBalanceStockAlgorithm(5);
-        Stock result = alg.apply(new Stock("FOO", 3.0, 3));
-        System.out.println("result: " + result);
-    }
-
-    /*
-     * apply the alg to each stock,
-     * send sell order
-     * return adjusted portfolio
+    /**
+     * Creates a new algorithm based on the provided value.
      */
-    public List<Stock> applyAlgorithmToPortfolio(Function<Stock, Integer> algorithm, List<Stock> portfolio) {
-        return null;
+    public Function<Stock, Stock> createBalanceStockAlgorithm(Double maximumValueOfStock){
+        return (Stock s) -> {
+            Double overMaxValue = s.getValue() - maximumValueOfStock;
+            if(overMaxValue > 0) {
+                Integer numberToSell = (int)Math.ceil(overMaxValue / s.getPrice());
+                System.out.println(String.format(">> SELL %s shares of %s", numberToSell, s.getTicker()));
+                return new Stock(s.getTicker(), s.getPrice(), s.getQuantity() - numberToSell);
+            } else {
+                return s;
+            }
+        };
     }
 
-
-    // TODO-DLN: show a function that takes another function
-    // wrap a transaction in a 3-phase commit
-    /*
-    public Stock applyAlgorithmWithinTransaction(Function<Stock, Stock> algorithm){
-        System.out.println("<transaction>");
-        System.out.println("\t<performTransaction/>");
-        System.out.println("</transaction>");
-        return null;
+    @Test public void shouldNotSell(){
+        Function<Stock, Stock> alg = createBalanceStockAlgorithm(5.0);
+        Stock result = alg.apply(new Stock("FOO", 3.0, 1));
+        assertEquals("1", result.getQuantity().toString());
     }
-    */
 
+    @Test public void shouldSell() {
+        Function<Stock, Stock> alg = createBalanceStockAlgorithm(5.0);
+        Stock result = alg.apply(new Stock("FOO", 3.0, 3));
+        assertTrue(result.getValue() <= 5.0);
+    }
 
-    @Test public void test(){
-        /*
-        TODO-DLN:
-        List<Stock> newPortfolio = Stock.portfolio.stream()
-            .map(algorithm) // map takes a function, it is a higher order function
-            .collect(List.collection)
-         */
+    @Test public void shoudlSellExactMatch(){
+        Function<Stock, Stock> alg = createBalanceStockAlgorithm(5.0);
+        Stock result = alg.apply(new Stock("FOO", 5.0, 2));
+        assertTrue(result.getValue() <= 5.0);
+        assertEquals("1", result.getQuantity().toString());
+    }
 
+    /**
+     * This higher-order function takes in a function as an argument.
+     */
+    public List<Stock> maintainPortfolio(
+            Function<Stock, Stock> algorithm,
+            List<Stock> portfolio){
+
+        return portfolio.stream()
+                .map(algorithm) // map is a higher order function as well
+                .collect(Collectors.toList());
+    }
+
+    @Test public void maintainPortfolioTest() {
+        Function<Stock, Stock> algorithm = createBalanceStockAlgorithm(1000.0);
+        List<Stock> result = maintainPortfolio(algorithm, Stock.portfolio);
+        result.stream().forEach(s -> assertTrue(s.getValue() <= 1000.0));
     }
 }

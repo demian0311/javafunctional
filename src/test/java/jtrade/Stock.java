@@ -3,7 +3,7 @@ package jtrade;
 import java.util.Arrays;
 import java.util.List;
 
-public class Stock {
+public class Stock implements Commodity{
     final String ticker;
     final Double price;
     final Integer quantity;
@@ -15,8 +15,8 @@ public class Stock {
     }
 
     public String getTicker(){ return ticker; }
-    public Double getPrice(){ return price; }
-    public Integer getQuantity() { return quantity;}
+    public @Override Double getPrice(){ return price; }
+    public @Override Integer getQuantity() { return quantity;}
 
     public String toString(){
         return String.format("Stock(\"%s\", %s, %s)", ticker, price, quantity);
