@@ -1,4 +1,4 @@
-package javafunctional.java8.examples;
+package jtrade;
 
 public class Stock {
     final String ticker;

@@ -1,5 +1,6 @@
 package javafunctional.java8.examples;
 
+import jtrade.Stock;
 import org.junit.Test;
 
 import java.util.Arrays;
