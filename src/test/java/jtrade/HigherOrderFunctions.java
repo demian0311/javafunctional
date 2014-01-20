@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class HigherOrderFunctions {
 
     /**
-     * Creates a new algorithm based on the provided value.
+     * This higher-order function returns a function.
      */
     public Function<Stock, Stock> createBalanceStockAlgorithm(Double maximumValueOfStock){
         return (Stock s) -> {
@@ -52,12 +52,11 @@ public class HigherOrderFunctions {
     /**
      * This higher-order function takes in a function as an argument.
      */
-    public List<Stock> maintainPortfolio(
-            Function<Stock, Stock> algorithm,
-            List<Stock> portfolio){
+    public List<Stock> maintainPortfolio(Function<Stock, Stock> algorithm, List<Stock> portfolio){
 
         return portfolio.stream()
-                .map(algorithm) // map is a higher order function as well
+                .peek(s -> System.out.println("EVALUATING: " + s.getTicker()))
+                .map(algorithm)
                 .collect(Collectors.toList());
     }
 
