@@ -53,10 +53,9 @@ public class Lambdas {
         System.out.println("--- BEGIN");
 
         portfolio.stream()
+                .peek(s -> System.out.println("NOW CHECKING: " + s.getTicker()))
                 .filter(s -> valueOver200.test(s))
                 .filter(s -> tradingWindowOpen.get())
-                .reduce()
-                .peek(s -> System.out.println("GOING TO SELL: " + s.getTicker()))
                 .forEach(s -> sell.accept(s));
 
         System.out.println("--- END");
