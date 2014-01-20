@@ -1,21 +1,32 @@
 package jtrade;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Stock {
     final String ticker;
-    final Integer value;
+    final Double price;
     final Integer quantity;
 
-    public Stock(String tickerIn, Integer valueIn, Integer quantityIn){
+    public Stock(String tickerIn, Double priceIn, Integer quantityIn){
         ticker = tickerIn;
-        value = valueIn;
+        price = priceIn;
         quantity = quantityIn;
     }
 
     public String getTicker(){ return ticker; }
-    public Integer getValue(){ return value; }
+    public Double getPrice(){ return price; }
     public Integer getQuantity() { return quantity;}
 
     public String toString(){
-        return String.format("Stock(\"%s\", %s, %s)", ticker, value, quantity);
+        return String.format("Stock(\"%s\", %s, %s)", ticker, price, quantity);
     }
+
+    public static List<Stock> portfolio = Arrays.asList(
+            new Stock("TWC", 135.71, 68),
+            new Stock("LVLT", 33.96, 22),
+            new Stock("GOOG", 1_150.53, 17),
+            new Stock("AAPL", 540.67, 30),
+            new Stock("MSFT", 36.38, 87),
+            new Stock("ORCL", 38.21, 26));
 }
