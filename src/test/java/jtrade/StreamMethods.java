@@ -45,11 +45,15 @@ public class StreamMethods {
     @Test public void parallelStream(){
         Stopwatch swStream = new Stopwatch().start();
         IntStream.range(0, 1000).forEach(ii -> expensiveOperation(ii));
-        System.out.println("\nstream: " + swStream.stop().elapsedMillis());
+        Long swStopTime = swStream.stop().elapsedMillis();
+        System.out.println("\nstream: " + swStopTime);
 
         Stopwatch swParallelStream = new Stopwatch().start();
         IntStream.range(0, 1000).parallel().limit(1000).forEach(ii -> expensiveOperation(ii));
-        System.out.println("\nparallel stream: " + swParallelStream.stop().elapsedMillis());
+        Long swParallelStopTime = swParallelStream.stop().elapsedMillis();
+        System.out.println("\nparallel stream: " + swParallelStopTime);
+
+        assertTrue(swStopTime > (2 * swParallelStopTime));
     }
 
     // TODO-DLN: reduce
