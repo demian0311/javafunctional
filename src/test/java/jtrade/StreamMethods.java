@@ -1,14 +1,13 @@
 package jtrade;
 
+import com.google.common.base.Stopwatch;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static java.lang.System.out;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Stream is an entry point into doing functional things with
@@ -19,11 +18,6 @@ public class StreamMethods {
     @Test public void range() {
         IntStream.range(1, 5).forEach(out::println);
     }
-
-    /*
-    @Test public void foo(){
-        Stock.portfolio.forEach(out::println);
-    }*/
 
     @Test public void usingPredicates() {
         // do we have any Oracle?
@@ -41,8 +35,24 @@ public class StreamMethods {
         assertEquals(49_913, Stock.portfolio.stream().mapToDouble(s -> s.getValue()).sum(), 1);
     }
 
+    private void expensiveOperation(Integer arg) {
+        if(arg % 50 == 0){System.out.print(".");}
+        try {
+            Thread.sleep(10l);
+        } catch (Exception e) { /* do nothing */ }
+    }
+
+    @Test public void parallelStream(){
+        Stopwatch swStream = new Stopwatch().start();
+        IntStream.range(0, 1000).forEach(ii -> expensiveOperation(ii));
+        System.out.println("\nstream: " + swStream.stop().elapsedMillis());
+
+        Stopwatch swParallelStream = new Stopwatch().start();
+        IntStream.range(0, 1000).parallel().limit(1000).forEach(ii -> expensiveOperation(ii));
+        System.out.println("\nparallel stream: " + swParallelStream.stop().elapsedMillis());
+    }
+
     // TODO-DLN: reduce
-    // TODO-DLN: parallelStream
     // TODO-DLN: http://download.java.net/jdk8/docs/api/java/nio/file/DirectoryStream.html
     // TODO-DLN: generate(Supplier<T>)
 }
