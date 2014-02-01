@@ -16,9 +16,9 @@ import static org.junit.Assert.assertTrue;
  */
 public class FunctionalInterfaces {
 
-    Predicate<Stock> valueOver1000 = s -> s.getValue() > 1000;
 
     @Test public void valueOver1000() {
+        Predicate<Stock> valueOver1000 = s -> s.getValue() > 1000;
         assertEquals(false, valueOver1000.test(new Stock("FOO", 11.0, 20)));
     }
 
