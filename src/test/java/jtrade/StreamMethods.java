@@ -12,6 +12,9 @@ import static org.junit.Assert.assertTrue;
 /**
  * Stream is an entry point into doing functional things with
  * the collections.
+ * TODO-DLN: reduce
+ * TODO-DLN: Directory Stream http://download.java.net/jdk8/docs/api/java/nio/file/DirectoryStream.html
+ * TODO-DLN: generate(Supplier<T>)
  */
 public class StreamMethods {
 
@@ -56,7 +59,4 @@ public class StreamMethods {
         assertTrue(swStopTime > (2 * swParallelStopTime));
     }
 
-    // TODO-DLN: reduce
-    // TODO-DLN: http://download.java.net/jdk8/docs/api/java/nio/file/DirectoryStream.html
-    // TODO-DLN: generate(Supplier<T>)
 }

@@ -1,8 +1,14 @@
 package jtrade;
 
-/**
- * Created by demian on 1/20/14.
- */
+import org.junit.Test;
+import jtrade.Stock;
+
 public class Collectors {
-    // TODO-DLN groupingBy
+
+    @Test public void groupingBy(){
+        //Stock.portfolio.stream().
+        // TODO-DLN groupingBy
+
+
+    }
 }
