@@ -4,7 +4,9 @@ public interface Commodity {
     public Double getPrice();
     public Integer getQuantity();
 
-    default Double getValue(){
+    public default Double getValue(){
         return getPrice() * getQuantity();
     }
+
+    // TODO: include a static method
 }

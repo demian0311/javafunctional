@@ -7,6 +7,7 @@ public class Stock implements Commodity{
     final String ticker;
     final Double price;
     final Integer quantity;
+    // TODO: include an Optional field
 
     public Stock(String tickerIn, Double priceIn, Integer quantityIn){
         ticker = tickerIn;
