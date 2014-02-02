@@ -16,12 +16,12 @@ import static org.junit.Assert.assertTrue;
  */
 public class FunctionalInterfaces {
 
-
-    @Test public void valueOver1000() {
+    @Test public void predicate() {
         Predicate<Stock> valueOver1000 = s -> s.getValue() > 1000;
         assertEquals(false, valueOver1000.test(new Stock("FOO", 11.0, 20)));
     }
 
+    // TODO: show Function
     //Function<Stock, Double> findValue = (Stock s) -> s.getPrice() * s.getQuantity();
 
     /*
@@ -46,6 +46,6 @@ public class FunctionalInterfaces {
 
 // TODO: show an interface that doesn't compile when you try to add multiple abstract methods
 
-// TODO:
-
 // TODO: show that default methods are not counted as abstract methods
+
+
