@@ -43,3 +43,9 @@ public class FunctionalInterfaces {
 
     // TODO-DLN: show a couple of the functions that work with primitives.
 }
+
+// TODO: show an interface that doesn't compile when you try to add multiple abstract methods
+
+// TODO:
+
+// TODO: show that default methods are not counted as abstract methods
