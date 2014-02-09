@@ -45,7 +45,7 @@ public class StreamMethods {
         } catch (Exception e) { /* do nothing */ }
     }
 
-    @Test public void parallelStream(){
+    @Test public void parallelStream() throws Exception{
         Stopwatch swStream = new Stopwatch().start();
         IntStream.range(0, 1000).forEach(ii -> expensiveOperation(ii));
         Long swStopTime = swStream.stop().elapsedMillis();
@@ -55,6 +55,8 @@ public class StreamMethods {
         IntStream.range(0, 1000).parallel().limit(1000).forEach(ii -> expensiveOperation(ii));
         Long swParallelStopTime = swParallelStream.stop().elapsedMillis();
         System.out.println("\nparallel stream: " + swParallelStopTime);
+
+        Thread.sleep(500);
 
         assertTrue(swStopTime > (2 * swParallelStopTime));
     }

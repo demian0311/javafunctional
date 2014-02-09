@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -67,5 +70,19 @@ public class Coin {
         }
     }
 
+    @Test public void testDiamondSyntax(){
+        Map<Integer, String> lookup = new HashMap<>();
+        assertTrue(lookup.keySet().isEmpty());
+    }
 
+    private Integer sum(Integer ... integers) {
+        return Arrays.asList(integers)
+                .stream()
+                .mapToInt(p -> p)
+                .sum();
+    }
+
+    @Test public void testVarArgs() {
+        assertEquals(new Integer(6), sum(1, 2, 3));
+    }
 }
