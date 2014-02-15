@@ -3,7 +3,10 @@ package jtrade;
 import org.junit.Test;
 import jtrade.Stock;
 
-public class Collectors {
+/**
+ * http://download.java.net/jdk8/docs/api/java/util/stream/CollectorsTest.html
+ */
+public class CollectorsTest {
 
     @Test public void groupingBy(){
         //Stock.portfolio.stream().

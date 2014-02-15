@@ -4,13 +4,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class OptionalUsage{
-    // TODO: where does optional show up coming out of the collecitons API?
+
     @Test public void optionalInCollections(){
         Optional<Stock> firstStock = Stock.portfolio.stream().findFirst();
-        //assertTrue(firstStock.isPresent());
         if(firstStock.isPresent()) {
             assertEquals(new Stock("TWC", 135.71, 68), firstStock.get());
         }else {
@@ -18,17 +18,27 @@ public class OptionalUsage{
         }
     }
 
-    // TODO: the wrong way to process Optional
     @Test public void wrongOptionalProcessing() {
         Optional<String> name = Optional.of("Jay");
-        assertEquals("Jay", name.get());
+        assertEquals("Jay", name.get()); // this is risky
 
         Optional<String> name1 = Optional.empty();
-        //System.out.println(">> " + name1.get());
+        try{
+            String name1Value = name1.get();
+            fail("should have thrown an exception");
+        } catch(NoSuchElementException nsee){
+            //
+        }
     }
 
-    // TODO: Optional equality
-    @Test public void optionalEquality() {
+    @Test public void optionalNotPresentEquality(){
+        Optional<String> name = Optional.empty();
+        Optional<String> name2 = Optional.empty();
+
+        assertEquals(name, name2);
+    }
+
+    @Test public void optionalPresentEquality() {
         Optional<String> name = Optional.of("Jay");
         Optional<String> name2 = Optional.of("Jay");
         Optional<String> name3 = Optional.of("Fay");
@@ -40,17 +50,32 @@ public class OptionalUsage{
         assertNotEquals(name2.hashCode(), name3.hashCode());
     }
 
-    // TODO: using optionals in your own beans
-    @Test public void optionalsInBeans() {
-        Person p = new Person("Demian", Optional.empty(), "Neidetcher", new Date());
+    @Test public void optionalInBeans(){
+        Person p = new Person(
+                "Demian",
+                Optional.of("Leo"),
+                "Neidetcher",
+                new Date());
+        assertTrue(p.getMiddleName().isPresent());
+        assertEquals("Leo", p.getMiddleName().orElse("NONE"));
+    }
+
+    @Test public void optionalInBeansEmpty() {
+        Person p = new Person(
+                "Demian",
+                Optional.empty(),
+                "Neidetcher",
+                new Date());
+        assertFalse(p.getMiddleName().isPresent());
+        assertEquals("NONE", p.getMiddleName().orElse("NONE"));
     }
 }
 
 class Person{
-    String firstName;
-    Optional<String> middleName;
-    String lastName;
-    Date dateOfBirth;
+    private String firstName;
+    private Optional<String> middleName;
+    private String lastName;
+    private Date dateOfBirth;
 
     Person(String firstName,
            Optional<String> middleName,
