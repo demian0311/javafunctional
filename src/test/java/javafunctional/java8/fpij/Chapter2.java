@@ -55,7 +55,7 @@ public class Chapter2 {
         friends.forEach(name -> upperCaseNames1.add(name.toUpperCase()));
         assertEquals(expected, upperCaseNames1);
 
-        // ProvidedFunctionalInterfaces
+        // JavaUtilFunctionFunctionalInterfaces
         friends.stream()
                 .map(name -> name.toUpperCase())
                 .forEach(name -> System.out.println(name));

@@ -2,10 +2,7 @@ package jtrade;
 
 import org.junit.Test;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -17,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  * doing that.  You can also create your own Single Abstract Method Interfaces and
  * use them.
  */
-public class ProvidedFunctionalInterfaces {
+public class JavaUtilFunctionFunctionalInterfaces {
 
     /**
      * Predicate takes an argument of a type and always returns a Boolean.
@@ -53,7 +50,14 @@ public class ProvidedFunctionalInterfaces {
         Consumer<Stock> sell = (arg) -> System.out.println("\tSELL ORDER: " + arg);
         sell.accept(new Stock("FOO", 3.0, 12));
     }
+
+    @Test public void binaryOperator(){
+        BinaryOperator<Integer> addition = (i1, i2) -> i1 + i2;
+        assertEquals(Integer.valueOf(8), addition.apply(3, 5));
+    }
+
+    @Test public void unaryOperator(){
+        UnaryOperator<Integer> absolute = (i1) -> (i1 < 0)? -1*i1: i1;
+        assertEquals(Integer.valueOf(20), absolute.apply(-20));
+    }
 }
-// TODO-DLN: show a couple of the functions that work with primitives.
-// TODO: show an interface that doesn't compile when you try to add multiple abstract methods
-// TODO: show that default methods are not counted as abstract methods

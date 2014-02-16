@@ -32,6 +32,7 @@ public class ExistingFunctionalInterfaces {
 
         sayHello.run();
         sayWorld.run();
+        // hello world
     }
 
     @Test public void comparator(){
@@ -43,6 +44,9 @@ public class ExistingFunctionalInterfaces {
                 return s1.getValue().compareTo(s2.getValue());
             }
         };
+
+        int result = stockComparator.compare(Stock.portfolio.get(0), Stock.portfolio.get(2));
+        assertEquals(-1, result);
 
         List<Stock> sortedList0 = Stock.portfolio
                 .stream()
